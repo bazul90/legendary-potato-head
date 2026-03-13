@@ -8,7 +8,7 @@ def create_routes(controllers):
     def fetch():
         return jsonify(controllers.fetch_all_data())
     
-    @prodcut_routes_blueprint("/products", methods=["POST"])
+    @prodcut_routes_blueprint("/add", methods=["POST"])
     def create_a_record():
         return controllers.create_product(request.json)
     
