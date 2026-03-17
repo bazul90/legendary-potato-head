@@ -1,23 +1,22 @@
 from flask import Flask
 
-# we import modules from the app to configure
-from app.model.product_repository import InMemoRepo
+# import correct classes
+from app.model.product_repository import InMemoryRepo
 from app.service.product_services import ProductServiceLayer
 from app.controllers.product_controllers import ProductController
 from app.routing.product_routes import create_routes
 
 def create_app():
-    # instantiate the product flask app as MKG(Make Kenya Great)
+    # instantiate the Flask app
     MKG = Flask(__name__)
 
-    # We instantiate the classes we have for out MVC architecture
-    repo = InMemoRepo() # domain and crud operation
-    service = ProductServiceLayer(repo) # bussiness logic
-
-    controllers = ProductController(service) # match the url to a service to be executed
+    # MVC architecture
+    repo = InMemoryRepo()                  # correct class name
+    service = ProductServiceLayer(repo)    # business logic
+    controllers = ProductController(service)
     product_routes = create_routes(controllers)
 
-    # register some routes
+    # register routes
     MKG.register_blueprint(product_routes)
 
     return MKG
